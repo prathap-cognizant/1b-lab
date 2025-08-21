@@ -1,0 +1,12 @@
+componentType: pubsub.azure.servicebus.topics
+version: v1
+metadata:
+  - name: connectionString
+    secretRef: servicebus-connection
+  - name: maxConcurrentHandlers
+    value: "10"
+  - name: publishMaxRetries
+    value: "5"
+scopes:
+  - productservice
+  - orderservice
