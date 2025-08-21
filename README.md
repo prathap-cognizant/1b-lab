@@ -18,10 +18,21 @@ See `scripts/deploy.sh` for full provisioning and deployment steps.
       README.md              # quick start this file
 
 
-Execute below comments in CLI for build and deployment:
+### Execute below comments in CLI for build and deployment:
 `az login` and
 `bash scripts/deploy.sh`
 
+### Stream logs
+`az containerapp logs show -g $RG -n $OS_APP --follow --type console`
+### smoke test
+Publish one product
+PS_FQDN=$(az containerapp show -g $RG -n productservice --query properties.configuration.ingress.fqdn -o tsv)
+curl -s "https://$PS_FQDN/products" -H "Content-Type: application/json" \
+-d '{"id":"p-100","name":"Book","price":12.5}'
 
-AUthor
+Watch subscriber logs for the event
+`az containerapp logs show -g $RG -n orderservice --follow --type console`
+
+
+Author
 Prathap Mathiyalagan
